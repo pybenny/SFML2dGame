@@ -10,23 +10,47 @@ using namespace std;
 
 int main()
 {
-	sf::RenderWindow window(
-		sf::VideoMode({ 1280, 720 }), "2D Sandbox Game");
+	// Create window 1280 x 720.
+	sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "2D Sandbox Game");
 
-	// while loop when window is open
+	// ----------------
+	// -- GAME SETUP --
+	// ----------------
+
+	constexpr float TILE_SIZE = 32.f; // 32x32 world tile size
+
+	sf::RectangleShape player({ 32.f, 64.f }); // TEMP PLAYER SIZE HITBOX
+	player.setPosition({ 400.f, 300.f }); // TEMP set player position in window
+	
+	// -----------------
+	// --- GAME LOOP ---
+	// -----------------
+
+	// Main game event loop
 	while (window.isOpen()) {
+		// EVENTS
+		// keeps checking if an event happens, and using optional as a box meaning it optionally can contain "something" or "not something"
 		while (const optional event = window.pollEvent()) {
-			if (event->is<sf::Event::Closed>()) {
+			if (event->is<sf::Event::Closed>()) { // if the action is "closed" then close the window
+				// if optional event variable inside event is of type closed event then close window
 				window.close();
 			}
 		}
+
+		// Update
+		// Player movement will go here
+
+
+
+
+		// Draw
+		window.clear(); // erase old frame
+
+		window.draw(player);
+
+		window.display(); // show completed frame
 	}
 
-	window.clear();
-
-	// Game content drawn below
-
-	window.display();
 
 	return 0;
 }
