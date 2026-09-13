@@ -35,8 +35,8 @@ int main()
 	sf::RectangleShape player({ 32.f, 64.f }); // TEMP PLAYER SIZE HITBOX
 	player.setPosition({ 400.f, 300.f }); // TEMP set player position in window
 
-	sf::Clock clock; // measured elapsed time
-	constexpr float PLAYER_SPEED = 200.f;
+	sf::Clock clock; // clock time variable
+	constexpr float PLAYER_SPEED = 200.f; // TEMP defining float player speed of 200.f
 	
 	// -----------------
 	// --- GAME LOOP ---
@@ -48,6 +48,8 @@ int main()
 		// Checking if user closes
 		// Does user press G?
 		// Does user resize window?
+		float deltaTime = clock.restart().asSeconds(); // restarts clock and returns how many seconds pass since previous frame
+		
 		// checking if an event happens, and using optional as a box meaning it optionally can contain "something" or "not something"
 		while (const optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>()) { // if the action is "closed" then close the window
@@ -58,6 +60,12 @@ int main()
 
 		// -UPDATE-
 		// Player movement will go here
+
+		// player speed (pixels per second * time since last clock restart)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+			player.move({ PLAYER_SPEED * deltaTime, 0.f }); // move right
+		}
+		
 		// Is a key held?
 		// Move player
 		// Apply Gravity
