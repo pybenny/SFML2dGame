@@ -84,7 +84,7 @@ int main()
 		// Does user press G?
 		// Does user resize window?
 		float deltaTime = clock.restart().asSeconds(); // restarts clock and returns how many seconds pass since previous frame
-		
+
 		// checking if an event happens, and using optional as a box meaning it optionally can contain "something" or "not something"
 		while (const optional event = window.pollEvent()) {
 			if (event->is<sf::Event::Closed>()) { // if the action is "close(x)" then close the game
@@ -93,7 +93,20 @@ int main()
 			}
 
 			// !need to save game progress
+
+			if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
+				if (keyReleased->code == sf::Keyboard::Key::Space) {
+					isJumping = false;
+				}
+
+				if (keyReleased->code == sf::Keyboard::Key::D) {
+					isJumping = false;
+				}
+
+				// other keyReleased can be put here
+			}
 		}
+
 
 		// -UPDATE-
 		// Player movement will go here
@@ -121,17 +134,12 @@ int main()
 		// Convert current velocity (pixels/sec) into movement for this frame, then move player
 		player.move(velocity * deltaTime);
 
-
+		// -COLLISION-
 		// Is a key held?
 		// Move player
 		// Apply Gravity
 		// Add collision and check for it
 		// Update the enemies
-
-
-
-
-
 
 
 		// -DRAW-
